@@ -212,6 +212,7 @@ function Dashboard() {
                   </div>
                   <Badge variant={a.status === "Entrevista programada" ? "default" : a.status === "Revisión" ? "secondary" : "outline"} className="text-[10px] font-mono whitespace-nowrap">
                     {a.status}
+                  </Badge>
                 </li>
               ))}
             </ul>
