@@ -1,0 +1,1 @@
+import{f as t}from"./index-yjWStkeE.js";function a(i){return t.post("/api/v1/certifications",i)}function n(i){return t.delete(`/api/v1/certifications/${i}`)}function r(){return t.get("/api/v1/candidate/certifications")}export{a as c,n as d,r as l};

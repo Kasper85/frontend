@@ -1,1 +1,0 @@
-import{f as o}from"./index-ClMjkeXx.js";function r(t){const e=t?"?"+new URLSearchParams(t).toString():"";return o.get(`/api/v1/jobs${e}`)}function s(t){return o.get(`/api/v1/jobs/${t}`)}function a(t){return o.post("/api/v1/jobs",t)}function i(t,e){return o.put(`/api/v1/jobs/${t}`,e)}function u(t){return o.delete(`/api/v1/jobs/${t}`)}export{a as c,u as d,s as g,r as l,i as u};
