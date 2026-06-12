@@ -1,8 +1,12 @@
 import { ShieldCheck, ShieldAlert, ShieldOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { ComponentType } from "react";
 
 type Level = "none" | "partial" | "full";
-const cfg: Record<Level, { label: string; icon: any; cls: string }> = {
+const cfg: Record<
+  Level,
+  { label: string; icon: ComponentType<{ className?: string }>; cls: string }
+> = {
   none: {
     label: "No verificado",
     icon: ShieldOff,

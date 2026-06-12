@@ -71,7 +71,11 @@ function Talento() {
       />
 
       <div className="grid lg:grid-cols-[280px_1fr] gap-4 sm:gap-6">
-        <Card className="p-4 sm:p-5 space-y-4 sm:space-y-5 h-fit lg:sticky lg:top-20" role="search" aria-label="Filtros de búsqueda de talento">
+        <Card
+          className="p-4 sm:p-5 space-y-4 sm:space-y-5 h-fit lg:sticky lg:top-20"
+          role="search"
+          aria-label="Filtros de búsqueda de talento"
+        >
           <div>
             <Label className="text-xs">Búsqueda</Label>
             <div className="relative mt-1.5">
@@ -195,12 +199,11 @@ function Talento() {
             <div className="flex items-center gap-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
               <span className="font-mono">
-                <span className="text-primary font-bold">{filtered.length}</span> candidato{filtered.length !== 1 ? "s" : ""} compatibles
+                <span className="text-primary font-bold">{filtered.length}</span> candidato
+                {filtered.length !== 1 ? "s" : ""} compatibles
               </span>
             </div>
-            <div className="text-xs text-muted-foreground">
-              Ordenado por match IA
-            </div>
+            <div className="text-xs text-muted-foreground">Ordenado por match IA</div>
           </Card>
 
           {filtered.length === 0 ? (

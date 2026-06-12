@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 interface EmptyStateSectionProps {
-  icon: any;
+  icon: ComponentType<{ className?: string }>;
   title: string;
   description: string;
   contextHint?: string;
@@ -29,7 +29,10 @@ export function EmptyStateSection({
 }: EmptyStateSectionProps) {
   return (
     <Card className="p-8 sm:p-12 text-center border-dashed border-2">
-      <div className="mx-auto h-14 w-14 rounded-full bg-primary/10 text-primary grid place-items-center mb-4" aria-hidden="true">
+      <div
+        className="mx-auto h-14 w-14 rounded-full bg-primary/10 text-primary grid place-items-center mb-4"
+        aria-hidden="true"
+      >
         <Icon className="h-7 w-7" />
       </div>
       <h2 className="text-lg sm:text-xl font-semibold">{title}</h2>
@@ -41,18 +44,18 @@ export function EmptyStateSection({
       )}
       {action && (
         <div className="mt-6 flex gap-3 justify-center flex-wrap">
-          <Button 
-            asChild 
-            variant={action.variant || "default"} 
+          <Button
+            asChild
+            variant={action.variant || "default"}
             size="sm"
             className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded transition-all"
           >
             <Link to={action.to}>{action.label}</Link>
           </Button>
           {secondaryAction && (
-            <Button 
-              asChild 
-              variant="outline" 
+            <Button
+              asChild
+              variant="outline"
               size="sm"
               className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded transition-all"
             >

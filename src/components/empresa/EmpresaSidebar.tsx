@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import type { ComponentType } from "react";
 import {
   LayoutDashboard,
   Briefcase,
@@ -97,7 +98,7 @@ function Group({
   pathname,
 }: {
   label: string;
-  items: { title: string; url: string; icon: any }[];
+  items: { title: string; url: string; icon: ComponentType<{ className?: string }> }[];
   collapsed: boolean;
   pathname: string;
 }) {

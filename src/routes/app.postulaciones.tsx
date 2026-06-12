@@ -62,9 +62,14 @@ function Postulaciones() {
                     {apps.map((a) => (
                       <tr key={a.application.id} className="hover:bg-muted/40">
                         <td className="p-4 font-medium">{a.job_title ?? a.application.job_id}</td>
-                        <td className="p-4 text-muted-foreground font-mono text-xs">{a.application.applied_at?.slice(0, 10) ?? "—"}</td>
+                        <td className="p-4 text-muted-foreground font-mono text-xs">
+                          {a.application.applied_at?.slice(0, 10) ?? "—"}
+                        </td>
                         <td className="p-4">
-                          <Badge variant="outline" className={`font-mono text-[10px] ${statusTone[a.application.status] ?? ""}`}>
+                          <Badge
+                            variant="outline"
+                            className={`font-mono text-[10px] ${statusTone[a.application.status] ?? ""}`}
+                          >
                             {a.application.status}
                           </Badge>
                         </td>
@@ -82,8 +87,13 @@ function Postulaciones() {
               <Card key={a.application.id} className="p-4">
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold text-sm flex-1">{a.job_title ?? a.application.job_id}</h3>
-                    <Badge variant="outline" className={`font-mono text-[10px] flex-shrink-0 ${statusTone[a.application.status] ?? ""}`}>
+                    <h3 className="font-semibold text-sm flex-1">
+                      {a.job_title ?? a.application.job_id}
+                    </h3>
+                    <Badge
+                      variant="outline"
+                      className={`font-mono text-[10px] flex-shrink-0 ${statusTone[a.application.status] ?? ""}`}
+                    >
                       {a.application.status}
                     </Badge>
                   </div>

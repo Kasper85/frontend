@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { PageHeader } from "@/components/app/EmptyState";
 import { learningPath } from "@/lib/mock/data";
+import type { ComponentType } from "react";
 import { BookOpen, CheckCircle2, Award, Clock, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/app/learning")({
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/app/learning")({
   component: Learning,
 });
 
-const typeIcon: Record<string, any> = {
+const typeIcon: Record<string, ComponentType<{ className?: string }>> = {
   Curso: BookOpen,
   Evaluación: CheckCircle2,
   Certificación: Award,
@@ -80,8 +81,16 @@ function Learning() {
                   </div>
                 )}
               </div>
-              <Button asChild size="sm" variant={l.progress > 0 ? "default" : "outline"} className="w-full sm:w-auto">
-                <Link to={l.type === "Evaluación" ? "/app/evaluaciones" : "/app/learning"} className="justify-center">
+              <Button
+                asChild
+                size="sm"
+                variant={l.progress > 0 ? "default" : "outline"}
+                className="w-full sm:w-auto"
+              >
+                <Link
+                  to={l.type === "Evaluación" ? "/app/evaluaciones" : "/app/learning"}
+                  className="justify-center"
+                >
                   {l.progress > 0 ? "Continuar" : "Comenzar"}{" "}
                   <ChevronRight className="ml-1 h-3.5 w-3.5" />
                 </Link>

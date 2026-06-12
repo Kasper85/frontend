@@ -24,7 +24,10 @@ export function ErrorState({
 }: ErrorStateProps) {
   return (
     <Card className="p-8 sm:p-12 text-center border-2 border-destructive/20 bg-destructive/5">
-      <div className="mx-auto h-14 w-14 rounded-full bg-destructive/10 text-destructive grid place-items-center mb-4" aria-hidden="true">
+      <div
+        className="mx-auto h-14 w-14 rounded-full bg-destructive/10 text-destructive grid place-items-center mb-4"
+        aria-hidden="true"
+      >
         <AlertCircle className="h-7 w-7" />
       </div>
       <h2 className="text-lg sm:text-xl font-semibold text-destructive">{title}</h2>
@@ -41,12 +44,7 @@ export function ErrorState({
           </Button>
         )}
         {action && (
-          <Button
-            variant="outline"
-            size="sm"
-            asChild={!action.onClick}
-            onClick={action.onClick}
-          >
+          <Button variant="outline" size="sm" asChild={!action.onClick} onClick={action.onClick}>
             {action.to ? <Link to={action.to}>{action.label}</Link> : action.label}
           </Button>
         )}

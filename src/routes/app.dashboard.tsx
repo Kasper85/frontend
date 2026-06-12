@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
+import type { ComponentType } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +42,11 @@ function Dashboard() {
   const top = jobs.slice(0, 3);
   const next = learningPath.slice(0, 3);
   const [recs, setRecs] = useState<RecommendationItem[]>([]);
-  useEffect(() => { getRecommendations({ limit: "3" }).then((r) => setRecs(r.data)).catch(() => {}); }, []);
+  useEffect(() => {
+    getRecommendations({ limit: "3" })
+      .then((r) => setRecs(r.data))
+      .catch(() => {});
+  }, []);
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <PageHeader
@@ -124,7 +129,8 @@ function Dashboard() {
       <NextStepWidget
         step={{
           title: "Desbloquea vacantes Lead",
-          description: "Completa 1 evaluación técnica más y verifica tu identidad para subir tu índice a 85+",
+          description:
+            "Completa 1 evaluación técnica más y verifica tu identidad para subir tu índice a 85+",
           impact: "+10 puntos empleabilidad · Acceso a 24 vacantes Lead",
           actionLabel: "Hacer evaluación ahora",
           actionUrl: "/app/evaluaciones",
@@ -138,9 +144,7 @@ function Dashboard() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-semibold">Vacantes a tu medida</h3>
-              <p className="text-xs text-muted-foreground">
-                Top 3 compatibles con tu perfil hoy
-              </p>
+              <p className="text-xs text-muted-foreground">Top 3 compatibles con tu perfil hoy</p>
             </div>
             <Button asChild variant="ghost" size="sm">
               <Link to="/app/vacantes">
@@ -155,11 +159,12 @@ function Dashboard() {
                 job={j as unknown as import("@/lib/api/types").Job}
                 match={{
                   score: j.match,
-                  reason: j.match >= 80
-                    ? "Tus skills coinciden perfectamente con los requeridos"
-                    : j.match >= 60
-                    ? "Tienes la mayoría de los skills requeridos"
-                    : "Podrías desarrollar algunos skills adicionales",
+                  reason:
+                    j.match >= 80
+                      ? "Tus skills coinciden perfectamente con los requeridos"
+                      : j.match >= 60
+                        ? "Tienes la mayoría de los skills requeridos"
+                        : "Podrías desarrollar algunos skills adicionales",
                 }}
               />
             ))}
@@ -179,7 +184,11 @@ function Dashboard() {
             </div>
             <div className="space-y-2">
               {next.map((l) => (
-                <Link key={l.id} to="/app/learning" className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted transition-colors cursor-pointer group">
+                <Link
+                  key={l.id}
+                  to="/app/learning"
+                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted transition-colors cursor-pointer group"
+                >
                   <div className="h-8 w-8 rounded-md bg-primary/10 text-primary grid place-items-center flex-none group-hover:bg-primary/20">
                     {l.type === "Curso" ? (
                       <BookOpen className="h-4 w-4" />
@@ -190,7 +199,9 @@ function Dashboard() {
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium truncate group-hover:text-primary">{l.title}</p>
+                    <p className="text-sm font-medium truncate group-hover:text-primary">
+                      {l.title}
+                    </p>
                     <p className="text-[11px] text-muted-foreground">
                       {l.type} · {l.skill}
                     </p>
@@ -206,14 +217,28 @@ function Dashboard() {
             <h3 className="font-semibold">Actividad reciente</h3>
             <ul className="mt-4 space-y-2 text-sm">
               {applications.slice(0, 3).map((a) => (
-                <li key={a.id} className="flex items-start justify-between gap-3 p-2.5 rounded-lg hover:bg-muted transition-colors group cursor-pointer">
+                <li
+                  key={a.id}
+                  className="flex items-start justify-between gap-3 p-2.5 rounded-lg hover:bg-muted transition-colors group cursor-pointer"
+                >
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium truncate group-hover:text-primary">{a.jobTitle}</p>
+                    <p className="text-sm font-medium truncate group-hover:text-primary">
+                      {a.jobTitle}
+                    </p>
                     <p className="text-[11px] text-muted-foreground">
                       {a.company} · {a.appliedAt}
                     </p>
                   </div>
-                  <Badge variant={a.status === "Entrevista programada" ? "default" : a.status === "Revisión" ? "secondary" : "outline"} className="text-[10px] font-mono whitespace-nowrap">
+                  <Badge
+                    variant={
+                      a.status === "Entrevista"
+                        ? "default"
+                        : a.status === "En revisión"
+                          ? "secondary"
+                          : "outline"
+                    }
+                    className="text-[10px] font-mono whitespace-nowrap"
+                  >
                     {a.status}
                   </Badge>
                 </li>
@@ -225,7 +250,9 @@ function Dashboard() {
             <Card className="p-6 border-primary/30">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold">Recomendaciones IA</h3>
-                <Button asChild variant="ghost" size="sm"><Link to="/app/vacantes">Ver todas</Link></Button>
+                <Button asChild variant="ghost" size="sm">
+                  <Link to="/app/vacantes">Ver todas</Link>
+                </Button>
               </div>
               <div className="space-y-3">
                 {recs.map((r) => (
@@ -233,9 +260,19 @@ function Dashboard() {
                     <div className="flex items-center justify-between gap-3 p-3 rounded-md hover:bg-muted/40">
                       <div className="min-w-0">
                         <p className="text-sm font-medium truncate">{r.job.title}</p>
-                        <p className="text-xs text-muted-foreground">{r.job.location ?? "Remoto"}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {r.job.location ?? "Remoto"}
+                        </p>
                       </div>
-                      <Badge variant="outline" className="font-mono">{Math.round(r.match.skills * 0.5 + r.match.evaluations * 0.25 + r.match.experience * 0.15 + r.match.certifications * 0.1)}%</Badge>
+                      <Badge variant="outline" className="font-mono">
+                        {Math.round(
+                          r.match.skills * 0.5 +
+                            r.match.evaluations * 0.25 +
+                            r.match.experience * 0.15 +
+                            r.match.certifications * 0.1,
+                        )}
+                        %
+                      </Badge>
                     </div>
                   </Link>
                 ))}
@@ -268,26 +305,41 @@ function MetricCard({
   delta,
   progress,
 }: {
-  icon: any;
+  icon: ComponentType<{ className?: string }>;
   label: string;
   value: string;
   delta?: string;
   progress?: number;
 }) {
   return (
-    <Card className="p-5" aria-label={`${label}: ${value}${delta ? ` (${delta})` : ''}`} role="status">
+    <Card
+      className="p-5"
+      aria-label={`${label}: ${value}${delta ? ` (${delta})` : ""}`}
+      role="status"
+    >
       <div className="flex items-center justify-between">
         <Icon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
         {delta && (
-          <span className="text-[10px] font-mono text-primary flex items-center gap-0.5" aria-label={`Cambio: ${delta}`}>
+          <span
+            className="text-[10px] font-mono text-primary flex items-center gap-0.5"
+            aria-label={`Cambio: ${delta}`}
+          >
             <TrendingUp className="h-3 w-3" aria-hidden="true" />
             {delta}
           </span>
         )}
       </div>
-      <p className="mt-3 font-mono text-3xl font-bold" aria-live="polite">{value}</p>
+      <p className="mt-3 font-mono text-3xl font-bold" aria-live="polite">
+        {value}
+      </p>
       <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
-      {progress !== undefined && <Progress value={progress} className="h-1 mt-3" aria-label={`Progreso de ${label}: ${progress}%`} />}
+      {progress !== undefined && (
+        <Progress
+          value={progress}
+          className="h-1 mt-3"
+          aria-label={`Progreso de ${label}: ${progress}%`}
+        />
+      )}
     </Card>
   );
 }

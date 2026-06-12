@@ -36,8 +36,8 @@ Create a local `.env` file from `.env.example`:
 cp .env.example .env
 ```
 
-| Variable | Purpose | Local default |
-| --- | --- | --- |
+| Variable            | Purpose                          | Local default           |
+| ------------------- | -------------------------------- | ----------------------- |
 | `VITE_API_BASE_URL` | Base URL for the Go backend API. | `http://localhost:8080` |
 
 ## Vercel deployment
@@ -47,4 +47,5 @@ Use `frontend` as the Vercel project root. Configure `VITE_API_BASE_URL` in Verc
 - Install Command: `npm install`
 - Build Command: `npm run build`
 - Output Directory: Vercel should detect the Vite/TanStack build output automatically.
+
 # frontend

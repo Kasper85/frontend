@@ -6,33 +6,42 @@ import { PageHeader } from "@/components/app/EmptyState";
 import { CandidateCard } from "@/components/empresa/CandidateCard";
 import { talentPool } from "@/lib/mock/company";
 import { useState } from "react";
+import type { ComponentType } from "react";
 import { ShieldCheck, Award, Sparkles, Star, Filter } from "lucide-react";
+
+type TalentPoolCandidate = (typeof talentPool)[number];
+type TalentPoolTab = {
+  id: string;
+  label: string;
+  icon: ComponentType<{ className?: string }>;
+  filter: (candidate: TalentPoolCandidate) => boolean;
+};
 
 export const Route = createFileRoute("/empresa/talent-pool")({
   head: () => ({ meta: [{ title: "Pool de Talento Certificado — Empresa" }] }),
   component: Page,
 });
 
-const tabs = [
+const tabs: TalentPoolTab[] = [
   {
     id: "verified",
     label: "100% Verificados",
     icon: ShieldCheck,
-    filter: (c: any) => c.verification === "full",
+    filter: (c) => c.verification === "full",
   },
   {
     id: "partial",
     label: "Parcialmente Verificados",
     icon: ShieldCheck,
-    filter: (c: any) => c.verification === "partial",
+    filter: (c) => c.verification === "partial",
   },
   {
     id: "certified",
     label: "Top Certificados",
     icon: Award,
-    filter: (c: any) => c.certifications >= 4,
+    filter: (c) => c.certifications >= 4,
   },
-  { id: "match", label: "Top Match", icon: Star, filter: (c: any) => (c.match ?? 0) >= 88 },
+  { id: "match", label: "Top Match", icon: Star, filter: (c) => (c.match ?? 0) >= 88 },
 ] as const;
 
 function Page() {

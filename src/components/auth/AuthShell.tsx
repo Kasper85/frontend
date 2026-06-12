@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import { Logo } from "@/components/Logo";
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck, Sparkles, Trophy } from "lucide-react";
@@ -47,7 +47,13 @@ export function AuthShell({
   );
 }
 
-function Feature({ icon: Icon, title }: { icon: any; title: string }) {
+function Feature({
+  icon: Icon,
+  title,
+}: {
+  icon: ComponentType<{ className?: string }>;
+  title: string;
+}) {
   return (
     <div className="flex items-center gap-3 text-sm">
       <div className="h-9 w-9 rounded-md bg-primary/15 text-primary grid place-items-center">

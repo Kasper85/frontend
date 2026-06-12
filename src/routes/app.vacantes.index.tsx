@@ -20,7 +20,7 @@ function Vacantes() {
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("published");
-  const [sortBy, setSortBy] = useState<"relevance" | "newest">("relevance");
+  const [sortBy, setSortBy] = useState<"title" | "newest">("newest");
 
   useEffect(() => {
     listJobs({ status, limit: "50" })
@@ -34,46 +34,49 @@ function Vacantes() {
       (j) =>
         q === "" ||
         j.title.toLowerCase().includes(q.toLowerCase()) ||
-        (j.description ?? "").toLowerCase().includes(q.toLowerCase())
+        (j.description ?? "").toLowerCase().includes(q.toLowerCase()),
     )
     .sort((a, b) => {
       if (sortBy === "newest") {
         return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
       }
-      // "relevance" - por match score si está disponible
-      return (b.match ?? 0) - (a.match ?? 0);
+      return a.title.localeCompare(b.title);
     });
 
   return (
     <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
       <PageHeader
         title="Vacantes"
-        description={loading ? "Cargando..." : `${filtered.length} vacantes ${filtered.length === 1 ? "disponible" : "disponibles"}.`}
+        description={
+          loading
+            ? "Cargando..."
+            : `${filtered.length} vacantes ${filtered.length === 1 ? "disponible" : "disponibles"}.`
+        }
       />
       <Card className="p-3 sm:p-4">
         <div className="flex flex-col gap-3">
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-              <Input 
-                value={q} 
-                onChange={(e) => setQ(e.target.value)} 
-                placeholder="Buscar por rol, empresa, skills…" 
+              <Input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Buscar por rol, empresa, skills…"
                 className="pl-8 h-10 text-sm"
                 aria-label="Buscar vacantes"
               />
             </div>
             <div className="flex gap-2">
-              <Button 
-                variant={sortBy === "relevance" ? "default" : "outline"} 
+              <Button
+                variant={sortBy === "title" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setSortBy("relevance")}
+                onClick={() => setSortBy("title")}
                 className="text-xs h-10"
               >
-                Relevancia
+                Título
               </Button>
-              <Button 
-                variant={sortBy === "newest" ? "default" : "outline"} 
+              <Button
+                variant={sortBy === "newest" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSortBy("newest")}
                 className="text-xs h-10"
@@ -93,12 +96,17 @@ function Vacantes() {
         <LoadingState count={3} type="card" />
       ) : filtered.length === 0 ? (
         <Card className="p-8 sm:p-12 text-center border-2 border-dashed">
-          <div className="h-12 w-12 rounded-full bg-primary/10 text-primary grid place-items-center mx-auto mb-4" aria-hidden="true">
+          <div
+            className="h-12 w-12 rounded-full bg-primary/10 text-primary grid place-items-center mx-auto mb-4"
+            aria-hidden="true"
+          >
             {q ? <Search className="h-6 w-6" /> : <Briefcase className="h-6 w-6" />}
           </div>
           <h2 className="font-semibold">{q ? "No se encontraron vacantes" : "Sin vacantes"}</h2>
           <p className="text-sm text-muted-foreground mt-1">
-            {q ? "Intenta otros términos de búsqueda o ajusta los filtros" : "No hay vacantes disponibles en este momento"}
+            {q
+              ? "Intenta otros términos de búsqueda o ajusta los filtros"
+              : "No hay vacantes disponibles en este momento"}
           </p>
         </Card>
       ) : (

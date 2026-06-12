@@ -17,7 +17,11 @@ interface MobileNavProps {
   userTitle?: string;
 }
 
-export function MobileNav({ groups, userName = "Usuario", userTitle = "Tech Professional" }: MobileNavProps) {
+export function MobileNav({
+  groups,
+  userName = "Usuario",
+  userTitle = "Tech Professional",
+}: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -58,7 +62,9 @@ export function MobileNav({ groups, userName = "Usuario", userTitle = "Tech Prof
                       onClick={() => setOpen(false)}
                       className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent text-foreground"
                     >
-                      {item.icon && <span className="h-4 w-4 text-muted-foreground">{item.icon}</span>}
+                      {item.icon && (
+                        <span className="h-4 w-4 text-muted-foreground">{item.icon}</span>
+                      )}
                       <span>{item.title}</span>
                     </Link>
                   ))}

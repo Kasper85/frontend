@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/app/EmptyState";
 import { edgeChallenges } from "@/lib/mock/extra";
+import type { ComponentType } from "react";
 import { Cpu, Clock, Sparkles, Shield, Fingerprint, Zap, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/app/challenges")({
@@ -130,7 +131,15 @@ function Page() {
   );
 }
 
-function Feature({ icon: Icon, title, desc }: { icon: any; title: string; desc: string }) {
+function Feature({
+  icon: Icon,
+  title,
+  desc,
+}: {
+  icon: ComponentType<{ className?: string }>;
+  title: string;
+  desc: string;
+}) {
   return (
     <div className="flex gap-3">
       <div className="h-9 w-9 rounded-md bg-primary/15 text-primary grid place-items-center flex-none">

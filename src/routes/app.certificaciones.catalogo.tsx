@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/app/EmptyState";
 import { certCatalog } from "@/lib/mock/extra";
 import { useState } from "react";
+import type { ComponentType } from "react";
 import { Clock, Zap, Award, ArrowRight, Star } from "lucide-react";
 
 export const Route = createFileRoute("/app/certificaciones/catalogo")({
@@ -100,7 +101,15 @@ function Catalog() {
   );
 }
 
-function Meta({ icon: Icon, label, mono }: { icon: any; label: string; mono?: boolean }) {
+function Meta({
+  icon: Icon,
+  label,
+  mono,
+}: {
+  icon: ComponentType<{ className?: string }>;
+  label: string;
+  mono?: boolean;
+}) {
   return (
     <div>
       <Icon className="h-3.5 w-3.5 mx-auto text-muted-foreground" />

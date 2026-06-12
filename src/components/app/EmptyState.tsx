@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 export function EmptyState({
   icon: Icon,
@@ -9,7 +9,7 @@ export function EmptyState({
   description,
   action,
 }: {
-  icon: any;
+  icon: ComponentType<{ className?: string }>;
   title: string;
   description: string;
   action?: { label: string; to: string };
@@ -20,7 +20,9 @@ export function EmptyState({
         <Icon className="h-5 sm:h-6 w-5 sm:w-6" />
       </div>
       <h3 className="mt-3 sm:mt-4 font-semibold text-base sm:text-lg">{title}</h3>
-      <p className="mt-1 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">{description}</p>
+      <p className="mt-1 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+        {description}
+      </p>
       {action && (
         <Button asChild className="mt-4 sm:mt-5 w-full sm:w-auto">
           <Link to={action.to}>{action.label}</Link>
@@ -43,7 +45,9 @@ export function PageHeader({
     <div className="mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
       <div className="min-w-0">
         <h1 className="text-xl sm:text-2xl font-bold tracking-tight">{title}</h1>
-        {description && <p className="mt-1 text-xs sm:text-sm text-muted-foreground">{description}</p>}
+        {description && (
+          <p className="mt-1 text-xs sm:text-sm text-muted-foreground">{description}</p>
+        )}
       </div>
       {children && <div className="flex gap-2 flex-wrap">{children}</div>}
     </div>

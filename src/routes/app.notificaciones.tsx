@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PageHeader } from "@/components/app/EmptyState";
 import { notifications } from "@/lib/mock/data";
+import type { ComponentType } from "react";
 import { Bell, Briefcase, Award, CheckCircle2, Settings } from "lucide-react";
 
 export const Route = createFileRoute("/app/notificaciones")({
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/app/notificaciones")({
   component: Notifs,
 });
 
-const icon: Record<string, any> = {
+const icon: Record<string, ComponentType<{ className?: string }>> = {
   vacante: Briefcase,
   certificacion: Award,
   evaluacion: CheckCircle2,

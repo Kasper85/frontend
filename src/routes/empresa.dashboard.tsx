@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { ComponentType } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -139,9 +140,16 @@ function EmpresaDashboard() {
             </div>
             <div className="space-y-2">
               {active.slice(0, 3).map((v) => (
-                <Link key={v.id} to="/empresa/vacantes/$id" params={{ id: v.id }} className="block p-2.5 rounded-lg hover:bg-muted transition-colors group">
+                <Link
+                  key={v.id}
+                  to="/empresa/vacantes/$id"
+                  params={{ id: v.id }}
+                  className="block p-2.5 rounded-lg hover:bg-muted transition-colors group"
+                >
                   <div className="space-y-1.5">
-                    <p className="text-sm font-medium truncate group-hover:text-primary">{v.title}</p>
+                    <p className="text-sm font-medium truncate group-hover:text-primary">
+                      {v.title}
+                    </p>
                     <div className="flex items-center gap-3 text-[11px] text-muted-foreground font-mono">
                       <span className="flex items-center gap-1" title="Vistas">
                         <Eye className="h-3 w-3" /> {v.views}
@@ -149,7 +157,10 @@ function EmpresaDashboard() {
                       <span className="flex items-center gap-1" title="Aplicaciones">
                         <Users className="h-3 w-3" /> {v.applicants}
                       </span>
-                      <span className="flex items-center gap-1 text-primary font-medium" title="Preseleccionados">
+                      <span
+                        className="flex items-center gap-1 text-primary font-medium"
+                        title="Preseleccionados"
+                      >
                         <UserCheck className="h-3 w-3" /> {v.shortlisted}
                       </span>
                     </div>
@@ -174,7 +185,10 @@ function EmpresaDashboard() {
               {upcoming.map((i) => {
                 const c = talentPool.find((t) => t.id === i.candidateId)!;
                 return (
-                  <li key={i.id} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-muted transition-colors group cursor-pointer">
+                  <li
+                    key={i.id}
+                    className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-muted transition-colors group cursor-pointer"
+                  >
                     <div className="h-9 w-9 rounded-md bg-primary/10 text-primary grid place-items-center font-mono text-[10px] flex-none group-hover:bg-primary/20">
                       <div className="text-center leading-none">
                         <div className="text-[8px] uppercase">
@@ -184,7 +198,9 @@ function EmpresaDashboard() {
                       </div>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium truncate group-hover:text-primary">{c.name}</p>
+                      <p className="text-sm font-medium truncate group-hover:text-primary">
+                        {c.name}
+                      </p>
                       <p className="text-[11px] text-muted-foreground">
                         {i.time} · {i.type}
                       </p>
@@ -244,7 +260,7 @@ function MetricCard({
   value,
   delta,
 }: {
-  icon: any;
+  icon: ComponentType<{ className?: string }>;
   label: string;
   value: string;
   delta?: string;
