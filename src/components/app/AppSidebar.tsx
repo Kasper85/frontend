@@ -15,7 +15,6 @@ import {
   Radar,
   Sparkles,
   Cpu,
-  ShoppingBag,
   ShieldCheck,
 } from "lucide-react";
 import {
@@ -36,29 +35,27 @@ import { user } from "@/lib/mock/data";
 
 const main = [
   { title: "Dashboard", url: "/app/dashboard", icon: LayoutDashboard },
-  { title: "Perfil", url: "/app/perfil", icon: UserCircle },
-  { title: "CV Inteligente", url: "/app/cv", icon: FileText },
+  { title: "Mi Perfil", url: "/app/perfil", icon: UserCircle },
+  { title: "Mi CV", url: "/app/cv", icon: FileText },
 ];
 const intelligence = [
   { title: "Empleabilidad IA", url: "/app/empleabilidad", icon: Activity },
   { title: "Mapa de Skills", url: "/app/skills", icon: Radar },
   { title: "Explicabilidad Match", url: "/app/match", icon: Sparkles },
-  { title: "Zero Trust", url: "/app/verificacion", icon: ShieldCheck },
+  { title: "Verificación Zero Trust", url: "/app/verificacion", icon: ShieldCheck },
 ];
-const work = [
+const employment = [
   { title: "Vacantes", url: "/app/vacantes", icon: Briefcase },
-  { title: "Postulaciones", url: "/app/postulaciones", icon: Inbox },
+  { title: "Mis Postulaciones", url: "/app/postulaciones", icon: Inbox },
   { title: "Entrevistas", url: "/app/entrevistas", icon: Calendar },
 ];
 const growth = [
-  { title: "Edge AI Challenges", url: "/app/challenges", icon: Cpu },
   { title: "Evaluaciones", url: "/app/evaluaciones", icon: GraduationCap },
   { title: "Certificaciones", url: "/app/certificaciones", icon: Award },
-  { title: "Catálogo certs", url: "/app/certificaciones/catalogo", icon: ShoppingBag },
-  { title: "Aprendizaje", url: "/app/aprendizaje", icon: ShoppingBag },
+  { title: "Edge AI Challenges", url: "/app/challenges", icon: Cpu },
   { title: "Learning Path", url: "/app/learning", icon: BookOpen },
 ];
-const system = [
+const account = [
   { title: "Notificaciones", url: "/app/notificaciones", icon: Bell },
   { title: "Configuración", url: "/app/configuracion", icon: Settings },
 ];
@@ -83,9 +80,9 @@ export function AppSidebar() {
           collapsed={collapsed}
           pathname={pathname}
         />
-        <Group label="Empleabilidad" items={work} collapsed={collapsed} pathname={pathname} />
+        <Group label="Empleabilidad" items={employment} collapsed={collapsed} pathname={pathname} />
         <Group label="Crecimiento" items={growth} collapsed={collapsed} pathname={pathname} />
-        <Group label="Cuenta" items={system} collapsed={collapsed} pathname={pathname} />
+        <Group label="Cuenta" items={account} collapsed={collapsed} pathname={pathname} />
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border">

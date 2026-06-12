@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { EmployabilityGauge } from "@/components/app/EmployabilityGauge";
 import { VerificationBadge } from "@/components/app/VerificationBadge";
 import { JobCard } from "@/components/app/JobCard";
+import { NextStepWidget } from "@/components/app/NextStepWidget";
 import { PageHeader } from "@/components/app/EmptyState";
 import { getRecommendations } from "@/lib/api/matching";
 import type { RecommendationItem } from "@/lib/api/types";
@@ -28,6 +29,7 @@ import {
   Sparkles,
   Check,
   ChevronRight,
+  Zap,
 } from "lucide-react";
 
 export const Route = createFileRoute("/app/dashboard")({
@@ -48,9 +50,9 @@ function Dashboard() {
       />
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2 p-6 relative overflow-hidden">
+        <Card className="lg:col-span-2 p-5 sm:p-6 relative overflow-hidden">
           <div className="absolute inset-0 -z-10 opacity-10 [background:radial-gradient(circle_at_80%_30%,var(--color-primary),transparent_60%)]" />
-          <div className="grid md:grid-cols-[auto_1fr] gap-6 items-center">
+          <div className="grid gap-4 sm:gap-6 items-center">
             <EmployabilityGauge value={user.employabilityIndex} />
             <div>
               <div className="flex items-center gap-2">
@@ -98,7 +100,7 @@ function Dashboard() {
         </Card>
       </div>
 
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           icon={Briefcase}
           label="Vacantes compatibles"
@@ -119,6 +121,18 @@ function Dashboard() {
         <MetricCard icon={BookOpen} label="Aprendizaje" value="32%" progress={32} />
       </div>
 
+      <NextStepWidget
+        step={{
+          title: "Desbloquea vacantes Lead",
+          description: "Completa 1 evaluación técnica más y verifica tu identidad para subir tu índice a 85+",
+          impact: "+10 puntos empleabilidad · Acceso a 24 vacantes Lead",
+          actionLabel: "Hacer evaluación ahora",
+          actionUrl: "/app/evaluaciones",
+          icon: <Zap className="h-6 w-6" />,
+          priority: "high",
+        }}
+      />
+
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-center justify-between mb-4">
@@ -136,7 +150,18 @@ function Dashboard() {
           </div>
           <div className="grid gap-3">
             {top.map((j) => (
-              <JobCard key={j.id} job={j as unknown as import("@/lib/api/types").Job} />
+              <JobCard
+                key={j.id}
+                job={j as unknown as import("@/lib/api/types").Job}
+                match={{
+                  score: j.match,
+                  reason: j.match >= 80
+                    ? "Tus skills coinciden perfectamente con los requeridos"
+                    : j.match >= 60
+                    ? "Tienes la mayoría de los skills requeridos"
+                    : "Podrías desarrollar algunos skills adicionales",
+                }}
+              />
             ))}
           </div>
         </Card>
