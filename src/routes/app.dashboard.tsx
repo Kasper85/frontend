@@ -45,8 +45,8 @@ function Dashboard() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <PageHeader
-        title={`Hola, ${user.name.split(" ")[0]} 👋`}
-        description="Este es el estado de tu carrera tech hoy."
+        title={`Hola, ${user.name.split(" ")[0]}`}
+        description="Tu carrera tech en tiempo real, impulsada por inteligencia artificial."
       />
 
       <div className="grid gap-4 lg:grid-cols-3">
@@ -137,9 +137,9 @@ function Dashboard() {
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-semibold">Vacantes recomendadas para ti</h3>
+              <h3 className="font-semibold">Vacantes a tu medida</h3>
               <p className="text-xs text-muted-foreground">
-                Ordenadas por compatibilidad semántica
+                Top 3 compatibles con tu perfil hoy
               </p>
             </div>
             <Button asChild variant="ghost" size="sm">
@@ -169,9 +169,12 @@ function Dashboard() {
         <div className="space-y-4">
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold">Próximos pasos</h3>
+              <div>
+                <h3 className="font-semibold">Tu Learning Path</h3>
+                <p className="text-xs text-muted-foreground">Personalizados por IA</p>
+              </div>
               <Button asChild variant="ghost" size="sm">
-                <Link to="/app/learning">Ver más</Link>
+                <Link to="/app/learning">Ver todo</Link>
               </Button>
             </div>
             <div className="space-y-2">

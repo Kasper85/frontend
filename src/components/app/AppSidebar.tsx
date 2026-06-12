@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard,
@@ -107,7 +108,7 @@ function Group({
   pathname,
 }: {
   label: string;
-  items: { title: string; url: string; icon: any }[];
+  items: { title: string; url: string; icon: React.ComponentType<{ className?: string }> }[];
   collapsed: boolean;
   pathname: string;
 }) {

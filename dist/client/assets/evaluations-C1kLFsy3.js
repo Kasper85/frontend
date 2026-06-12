@@ -1,1 +1,0 @@
-import{f as a}from"./index-yjWStkeE.js";function u(t){return a.get("/api/v1/evaluations")}function e(t){return a.get(`/api/v1/evaluations/${t}`)}function o(t,s,i){return a.post(`/api/v1/evaluations/${t}/results`,{score:s,answers:i})}function l(){return a.get("/api/v1/evaluation-results/me")}export{l as a,e as g,u as l,o as s};

@@ -1,1 +1,0 @@
-import{f as n}from"./index-yjWStkeE.js";function o(t){return n.get(`/api/v1/matching/jobs/${t}/me`)}function i(t){const e=t?"?"+new URLSearchParams(t).toString():"";return n.get(`/api/v1/matching/recommendations${e}`)}export{o as a,i as g};

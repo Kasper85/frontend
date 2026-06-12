@@ -4,10 +4,11 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/app/JobCard";
+import { LoadingState } from "@/components/app/LoadingState";
 import { PageHeader } from "@/components/app/EmptyState";
 import { listJobs } from "@/lib/api/jobs";
 import type { Job } from "@/lib/api/types";
-import { Search, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUpDown, Briefcase } from "lucide-react";
 
 export const Route = createFileRoute("/app/vacantes/")({
   head: () => ({ meta: [{ title: "Vacantes — Find Your Job" }] }),
@@ -89,18 +90,16 @@ function Vacantes() {
         </div>
       </Card>
       {loading ? (
-        <div className="flex flex-col gap-4">
-          <div className="h-24 bg-muted rounded-lg animate-pulse" />
-          <div className="h-24 bg-muted rounded-lg animate-pulse" />
-          <div className="h-24 bg-muted rounded-lg animate-pulse" />
-        </div>
+        <LoadingState count={3} type="card" />
       ) : filtered.length === 0 ? (
-        <Card className="p-8 sm:p-12 text-center border-dashed">
-          <div className="h-12 w-12 rounded-full bg-muted grid place-items-center mx-auto mb-4" aria-hidden="true">
-            <Search className="h-6 w-6 text-muted-foreground" />
+        <Card className="p-8 sm:p-12 text-center border-2 border-dashed">
+          <div className="h-12 w-12 rounded-full bg-primary/10 text-primary grid place-items-center mx-auto mb-4" aria-hidden="true">
+            {q ? <Search className="h-6 w-6" /> : <Briefcase className="h-6 w-6" />}
           </div>
-          <h2 className="font-semibold">No se encontraron vacantes</h2>
-          <p className="text-sm text-muted-foreground mt-1">Intenta otros términos de búsqueda</p>
+          <h2 className="font-semibold">{q ? "No se encontraron vacantes" : "Sin vacantes"}</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            {q ? "Intenta otros términos de búsqueda o ajusta los filtros" : "No hay vacantes disponibles en este momento"}
+          </p>
         </Card>
       ) : (
         <div className="grid gap-3 sm:gap-4" role="list">

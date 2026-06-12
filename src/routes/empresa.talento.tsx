@@ -64,14 +64,14 @@ function Talento() {
   }, [q, skills, vertical, seniority, verification, modality, minMatch, onlyAvailable]);
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-4 sm:space-y-6 max-w-7xl mx-auto px-4 sm:px-0">
       <PageHeader
         title="Buscar talento"
         description="Más de 24,000 perfiles tech validados con Zero Trust."
       />
 
-      <div className="grid lg:grid-cols-[280px_1fr] gap-6">
-        <Card className="p-5 space-y-5 h-fit lg:sticky lg:top-20">
+      <div className="grid lg:grid-cols-[280px_1fr] gap-4 sm:gap-6">
+        <Card className="p-4 sm:p-5 space-y-4 sm:space-y-5 h-fit lg:sticky lg:top-20" role="search" aria-label="Filtros de búsqueda de talento">
           <div>
             <Label className="text-xs">Búsqueda</Label>
             <div className="relative mt-1.5">
@@ -161,12 +161,13 @@ function Talento() {
             />
           </div>
 
-          <label className="flex items-center gap-2 text-xs cursor-pointer">
+          <label className="flex items-center gap-2 text-xs cursor-pointer hover:opacity-70">
             <input
               type="checkbox"
               checked={onlyAvailable}
               onChange={(e) => setOnlyAvailable(e.target.checked)}
               className="rounded"
+              aria-label="Mostrar solo candidatos disponibles"
             />
             Solo disponibles ahora
           </label>
@@ -189,16 +190,15 @@ function Talento() {
           </Button>
         </Card>
 
-        <div className="space-y-4 min-w-0">
-          <Card className="p-4 flex items-center justify-between">
+        <div className="space-y-3 sm:space-y-4 min-w-0">
+          <Card className="p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
             <div className="flex items-center gap-2 text-sm">
-              <Sparkles className="h-4 w-4 text-primary" />
+              <Sparkles className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
               <span className="font-mono">
-                <span className="text-primary font-bold">{filtered.length}</span> candidatos
-                compatibles
+                <span className="text-primary font-bold">{filtered.length}</span> candidato{filtered.length !== 1 ? "s" : ""} compatibles
               </span>
             </div>
-            <div className="text-xs text-muted-foreground hidden sm:block">
+            <div className="text-xs text-muted-foreground">
               Ordenado por match IA
             </div>
           </Card>
@@ -210,7 +210,7 @@ function Talento() {
               description="Ajusta los filtros o reduce el match mínimo para ver más candidatos."
             />
           ) : (
-            <div className="grid sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
               {filtered
                 .sort((a, b) => (b.match ?? 0) - (a.match ?? 0))
                 .map((c) => (

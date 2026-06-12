@@ -23,29 +23,30 @@ function Learning() {
     learningPath.reduce((a, b) => a + b.progress, 0) / learningPath.length,
   );
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-0">
       <PageHeader
         title="Tu Learning Path"
         description="Generado por IA según las brechas detectadas en tu perfil."
       />
 
-      <Card className="p-6">
+      <Card className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             Progreso global
           </span>
           <span className="font-mono font-bold text-primary">{overall}%</span>
         </div>
-        <Progress value={overall} className="h-2" />
+        <Progress value={overall} className="h-2" aria-label={`Progreso global: ${overall}%`} />
       </Card>
 
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         {learningPath.map((l) => {
           const Icon = typeIcon[l.type];
           return (
             <Card
               key={l.id}
-              className="p-4 flex items-center gap-4 hover:border-primary/40 transition-colors"
+              className="p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 hover:border-primary/40 transition-colors"
+              role="article"
             >
               <div className="h-11 w-11 rounded-md bg-primary/10 text-primary grid place-items-center flex-none">
                 <Icon className="h-5 w-5" />
@@ -79,8 +80,8 @@ function Learning() {
                   </div>
                 )}
               </div>
-              <Button asChild size="sm" variant={l.progress > 0 ? "default" : "outline"}>
-                <Link to={l.type === "Evaluación" ? "/app/evaluaciones" : "/app/learning"}>
+              <Button asChild size="sm" variant={l.progress > 0 ? "default" : "outline"} className="w-full sm:w-auto">
+                <Link to={l.type === "Evaluación" ? "/app/evaluaciones" : "/app/learning"} className="justify-center">
                   {l.progress > 0 ? "Continuar" : "Comenzar"}{" "}
                   <ChevronRight className="ml-1 h-3.5 w-3.5" />
                 </Link>

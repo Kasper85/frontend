@@ -85,9 +85,9 @@ function EmpresaDashboard() {
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-semibold">Top candidatos por match IA</h3>
+              <h3 className="font-semibold">Candidatos Top 3 para entrevista</h3>
               <p className="text-xs text-muted-foreground">
-                Pre-cualificados con Zero Trust verificado
+                Filtrados por match IA y verificación Zero Trust
               </p>
             </div>
             <Button asChild variant="ghost" size="sm">
