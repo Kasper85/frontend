@@ -1,0 +1,1 @@
+import{f as t}from"./index-D10vrQmr.js";function o(a,p){return t.post(`/api/v1/jobs/${a}/apply`,{})}function n(){return t.get("/api/v1/applications/me")}function s(a){return t.get(`/api/v1/jobs/${a}/applications`)}function u(a,p){return t.patch(`/api/v1/applications/${a}/status`,{status:p})}export{s as a,o as b,n as l,u};

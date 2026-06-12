@@ -33,25 +33,25 @@ function Evals() {
     <div className="max-w-6xl mx-auto space-y-6">
       <PageHeader title="Evaluaciones técnicas" description="Valida tus skills y desbloquea certificaciones." />
       <Tabs defaultValue="catalogo">
-        <TabsList><TabsTrigger value="catalogo">Catálogo ({evals.length})</TabsTrigger><TabsTrigger value="historial">Historial ({results.length})</TabsTrigger></TabsList>
+        <TabsList className="grid w-full grid-cols-2"><TabsTrigger value="catalogo" className="text-xs sm:text-sm">Catálogo ({evals.length})</TabsTrigger><TabsTrigger value="historial" className="text-xs sm:text-sm">Historial ({results.length})</TabsTrigger></TabsList>
         <TabsContent value="catalogo" className="mt-5">
           {evals.length === 0 ? (
             <Card className="p-10 text-center text-muted-foreground"><p>No hay evaluaciones disponibles.</p></Card>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {evals.filter((e) => e.is_active).map((ev) => (
-                <Card key={ev.id} className="p-5">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold">{ev.title}</h3>
-                    <Badge variant="outline">{ev.type}</Badge>
+                <Card key={ev.id} className="p-4 sm:p-5 hover:shadow-md transition-shadow flex flex-col">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 mb-3">
+                    <h3 className="font-semibold text-sm sm:text-base leading-tight">{ev.title}</h3>
+                    <Badge variant="outline" className="text-xs w-fit">{ev.type}</Badge>
                   </div>
                   {ev.description && <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{ev.description}</p>}
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <div className="flex flex-wrap gap-2 text-xs text-muted-foreground mb-4 mt-auto">
                     {ev.duration_minutes && <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{ev.duration_minutes}m</span>}
                     {ev.max_score && <span>Max: {ev.max_score}</span>}
                     {ev.passing_score && <span>Aprueba: {ev.passing_score}</span>}
                   </div>
-                  <Button asChild size="sm" variant="outline" className="w-full mt-3"><a href={`/app/evaluaciones/${ev.id}`} className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"><ChevronRight className="h-4 w-4 mr-1" /> Tomar</a></Button>
+                  <Button asChild size="sm" variant="outline" className="w-full"><a href={`/app/evaluaciones/${ev.id}`} className="inline-flex items-center justify-center"><ChevronRight className="h-3.5 w-3.5 mr-1" /> Tomar</a></Button>
                 </Card>
               ))}
             </div>
@@ -61,14 +61,14 @@ function Evals() {
           {results.length === 0 ? (
             <Card className="p-10 text-center text-muted-foreground"><p>No has completado ninguna evaluación.</p></Card>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {results.map((r) => (
-                <Card key={r.result.id} className="p-4 flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{r.evaluation_title ?? r.result.evaluation_id}</p>
-                    <p className="text-xs text-muted-foreground">{r.result.taken_at?.slice(0, 10) ?? "—"}</p>
+                <Card key={r.result.id} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:shadow-sm transition-shadow">
+                  <div className="min-w-0">
+                    <p className="font-medium text-sm sm:text-base">{r.evaluation_title ?? r.result.evaluation_id}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{r.result.taken_at?.slice(0, 10) ?? "—"}</p>
                   </div>
-                  <Badge className={r.result.passed ? "bg-primary text-primary-foreground" : "bg-destructive/15 text-destructive"}>{r.result.passed ? `Aprobado (${r.result.score})` : `${r.result.score}`}</Badge>
+                  <Badge className={`text-xs sm:text-sm ${r.result.passed ? "bg-primary text-primary-foreground" : "bg-destructive/15 text-destructive"} whitespace-nowrap`}>{r.result.passed ? `Aprobado (${r.result.score})` : `Reprobado (${r.result.score})`}</Badge>
                 </Card>
               ))}
             </div>

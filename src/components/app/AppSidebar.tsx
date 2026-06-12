@@ -14,7 +14,6 @@ import {
   Activity,
   Radar,
   Sparkles,
-  Cpu,
   ShieldCheck,
 } from "lucide-react";
 import {
@@ -52,7 +51,6 @@ const employment = [
 const growth = [
   { title: "Evaluaciones", url: "/app/evaluaciones", icon: GraduationCap },
   { title: "Certificaciones", url: "/app/certificaciones", icon: Award },
-  { title: "Edge AI Challenges", url: "/app/challenges", icon: Cpu },
   { title: "Learning Path", url: "/app/learning", icon: BookOpen },
 ];
 const account = [

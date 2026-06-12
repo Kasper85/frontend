@@ -15,14 +15,14 @@ export function EmptyState({
   action?: { label: string; to: string };
 }) {
   return (
-    <Card className="p-10 text-center border-dashed">
-      <div className="mx-auto h-12 w-12 rounded-full bg-primary/10 text-primary grid place-items-center">
-        <Icon className="h-6 w-6" />
+    <Card className="p-6 sm:p-10 text-center border-dashed">
+      <div className="mx-auto h-10 sm:h-12 w-10 sm:w-12 rounded-full bg-primary/10 text-primary grid place-items-center">
+        <Icon className="h-5 sm:h-6 w-5 sm:w-6" />
       </div>
-      <h3 className="mt-4 font-semibold">{title}</h3>
-      <p className="mt-1 text-sm text-muted-foreground max-w-md mx-auto">{description}</p>
+      <h3 className="mt-3 sm:mt-4 font-semibold text-base sm:text-lg">{title}</h3>
+      <p className="mt-1 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">{description}</p>
       {action && (
-        <Button asChild className="mt-5">
+        <Button asChild className="mt-4 sm:mt-5 w-full sm:w-auto">
           <Link to={action.to}>{action.label}</Link>
         </Button>
       )}

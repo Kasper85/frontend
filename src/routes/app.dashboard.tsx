@@ -174,10 +174,10 @@ function Dashboard() {
                 <Link to="/app/learning">Ver más</Link>
               </Button>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {next.map((l) => (
-                <div key={l.id} className="flex items-start gap-3 text-sm">
-                  <div className="h-8 w-8 rounded-md bg-primary/10 text-primary grid place-items-center flex-none">
+                <Link key={l.id} to="/app/learning" className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted transition-colors cursor-pointer group">
+                  <div className="h-8 w-8 rounded-md bg-primary/10 text-primary grid place-items-center flex-none group-hover:bg-primary/20">
                     {l.type === "Curso" ? (
                       <BookOpen className="h-4 w-4" />
                     ) : l.type === "Evaluación" ? (
@@ -187,31 +187,31 @@ function Dashboard() {
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium truncate">{l.title}</p>
+                    <p className="text-sm font-medium truncate group-hover:text-primary">{l.title}</p>
                     <p className="text-[11px] text-muted-foreground">
                       {l.type} · {l.skill}
                     </p>
                     {l.progress > 0 && <Progress value={l.progress} className="h-1 mt-1.5" />}
                   </div>
-                </div>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary mt-0.5 flex-none" />
+                </Link>
               ))}
             </div>
           </Card>
 
           <Card className="p-6">
             <h3 className="font-semibold">Actividad reciente</h3>
-            <ul className="mt-4 space-y-3 text-sm">
+            <ul className="mt-4 space-y-2 text-sm">
               {applications.slice(0, 3).map((a) => (
-                <li key={a.id} className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium truncate">{a.jobTitle}</p>
+                <li key={a.id} className="flex items-start justify-between gap-3 p-2.5 rounded-lg hover:bg-muted transition-colors group cursor-pointer">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium truncate group-hover:text-primary">{a.jobTitle}</p>
                     <p className="text-[11px] text-muted-foreground">
                       {a.company} · {a.appliedAt}
                     </p>
                   </div>
-                  <Badge variant="outline" className="text-[10px] font-mono">
+                  <Badge variant={a.status === "Entrevista programada" ? "default" : a.status === "Revisión" ? "secondary" : "outline"} className="text-[10px] font-mono whitespace-nowrap">
                     {a.status}
-                  </Badge>
                 </li>
               ))}
             </ul>
@@ -271,19 +271,19 @@ function MetricCard({
   progress?: number;
 }) {
   return (
-    <Card className="p-5">
+    <Card className="p-5" aria-label={`${label}: ${value}${delta ? ` (${delta})` : ''}`} role="status">
       <div className="flex items-center justify-between">
-        <Icon className="h-4 w-4 text-muted-foreground" />
+        <Icon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
         {delta && (
-          <span className="text-[10px] font-mono text-primary flex items-center gap-0.5">
-            <TrendingUp className="h-3 w-3" />
+          <span className="text-[10px] font-mono text-primary flex items-center gap-0.5" aria-label={`Cambio: ${delta}`}>
+            <TrendingUp className="h-3 w-3" aria-hidden="true" />
             {delta}
           </span>
         )}
       </div>
-      <p className="mt-3 font-mono text-3xl font-bold">{value}</p>
+      <p className="mt-3 font-mono text-3xl font-bold" aria-live="polite">{value}</p>
       <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
-      {progress !== undefined && <Progress value={progress} className="h-1 mt-3" />}
+      {progress !== undefined && <Progress value={progress} className="h-1 mt-3" aria-label={`Progreso de ${label}: ${progress}%`} />}
     </Card>
   );
 }

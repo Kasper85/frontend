@@ -57,31 +57,34 @@ function Certs() {
         <Button size="sm" onClick={() => setAdding(!adding)}><Plus className="h-4 w-4 mr-1" /> Agregar</Button>
       </PageHeader>
       {adding && (
-        <Card className="p-4">
-          <form onSubmit={handleAdd} className="flex flex-wrap gap-3 items-end">
-            <div><Label htmlFor="cname">Nombre *</Label><Input id="cname" name="cname" placeholder="AWS Solutions Architect" required /></div>
-            <div><Label htmlFor="cissuer">Emisor *</Label><Input id="cissuer" name="cissuer" placeholder="Amazon" required /></div>
-            <div><Label htmlFor="curl">URL credencial</Label><Input id="curl" name="curl" placeholder="https://..." /></div>
-            <Button type="submit" size="sm">Guardar</Button>
+        <Card className="p-4 sm:p-6">
+          <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 items-end" aria-label="Agregar nueva certificación">
+            <div className="flex flex-col gap-1.5"><Label htmlFor="cname">Nombre *</Label><Input id="cname" name="cname" placeholder="AWS Solutions Architect" aria-required="true" required /></div>
+            <div className="flex flex-col gap-1.5"><Label htmlFor="cissuer">Emisor *</Label><Input id="cissuer" name="cissuer" placeholder="Amazon" aria-required="true" required /></div>
+            <div className="flex flex-col gap-1.5"><Label htmlFor="curl">URL credencial</Label><Input id="curl" name="curl" placeholder="https://..." aria-describedby="url-help" /></div>
+            <Button type="submit" size="sm" className="sm:col-span-1" aria-label="Guardar nueva certificación">Guardar</Button>
+            <p id="url-help" className="sr-only">Ingresa la URL de credencial opcional para verificación</p>
           </form>
         </Card>
       )}
       {certs.length === 0 ? (
         <Card className="p-10 text-center text-muted-foreground"><p>No tienes certificaciones todavía.</p></Card>
       ) : (
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {certs.map((c) => (
-            <Card key={c.id} className="p-4">
-              <div className="flex items-center justify-between mb-1">
-                <p className="font-semibold text-sm">{c.name}</p>
-                <div className="flex gap-1">
+            <Card key={c.id} className="p-4 sm:p-5 hover:shadow-md transition-shadow">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 mb-3">
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-sm sm:text-base leading-tight">{c.name}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">{c.issuer}</p>
+                </div>
+                <div className="flex gap-1 flex-shrink-0">
                   {c.verified && <Badge className="bg-primary text-primary-foreground text-[10px]">Verificado</Badge>}
                   <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => handleDelete(c.id)}><Trash2 className="h-3 w-3" /></Button>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground">{c.issuer}</p>
-              {c.issue_date && <p className="text-xs text-muted-foreground mt-1">Emitida: {c.issue_date}</p>}
-              {c.credential_url && <a href={c.credential_url} target="_blank" rel="noreferrer" className="text-xs text-primary hover:underline mt-1 block">Ver credencial</a>}
+              {c.issue_date && <p className="text-xs text-muted-foreground">Emitida: {c.issue_date}</p>}
+              {c.credential_url && <a href={c.credential_url} target="_blank" rel="noreferrer" className="text-xs text-primary hover:underline mt-2 block">Ver credencial</a>}
             </Card>
           ))}
         </div>

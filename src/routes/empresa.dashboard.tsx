@@ -55,7 +55,7 @@ function EmpresaDashboard() {
         </Button>
       </PageHeader>
 
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           icon={Briefcase}
           label="Vacantes activas"
@@ -137,20 +137,20 @@ function EmpresaDashboard() {
                 <Link to="/empresa/vacantes">Ver más</Link>
               </Button>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {active.slice(0, 3).map((v) => (
-                <Link key={v.id} to="/empresa/vacantes/$id" params={{ id: v.id }} className="block">
+                <Link key={v.id} to="/empresa/vacantes/$id" params={{ id: v.id }} className="block p-2.5 rounded-lg hover:bg-muted transition-colors group">
                   <div className="space-y-1.5">
-                    <p className="text-sm font-medium truncate">{v.title}</p>
+                    <p className="text-sm font-medium truncate group-hover:text-primary">{v.title}</p>
                     <div className="flex items-center gap-3 text-[11px] text-muted-foreground font-mono">
-                      <span className="flex items-center gap-1">
+                      <span className="flex items-center gap-1" title="Vistas">
                         <Eye className="h-3 w-3" /> {v.views}
                       </span>
-                      <span className="flex items-center gap-1">
+                      <span className="flex items-center gap-1" title="Aplicaciones">
                         <Users className="h-3 w-3" /> {v.applicants}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <UserCheck className="h-3 w-3 text-primary" /> {v.shortlisted}
+                      <span className="flex items-center gap-1 text-primary font-medium" title="Preseleccionados">
+                        <UserCheck className="h-3 w-3" /> {v.shortlisted}
                       </span>
                     </div>
                     <Progress
@@ -170,12 +170,12 @@ function EmpresaDashboard() {
                 <Link to="/empresa/entrevistas">Calendario</Link>
               </Button>
             </div>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {upcoming.map((i) => {
                 const c = talentPool.find((t) => t.id === i.candidateId)!;
                 return (
-                  <li key={i.id} className="flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-md bg-primary/10 text-primary grid place-items-center font-mono text-[10px] flex-none">
+                  <li key={i.id} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-muted transition-colors group cursor-pointer">
+                    <div className="h-9 w-9 rounded-md bg-primary/10 text-primary grid place-items-center font-mono text-[10px] flex-none group-hover:bg-primary/20">
                       <div className="text-center leading-none">
                         <div className="text-[8px] uppercase">
                           {new Date(i.date).toLocaleDateString("es", { month: "short" })}
@@ -184,11 +184,12 @@ function EmpresaDashboard() {
                       </div>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium truncate">{c.name}</p>
+                      <p className="text-sm font-medium truncate group-hover:text-primary">{c.name}</p>
                       <p className="text-[11px] text-muted-foreground">
                         {i.time} · {i.type}
                       </p>
                     </div>
+                    <Calendar className="h-4 w-4 text-muted-foreground flex-none" />
                   </li>
                 );
               })}

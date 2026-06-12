@@ -34,25 +34,46 @@ function Vacantes() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
       <PageHeader
         title="Vacantes"
-        description={loading ? "Cargando..." : `${filtered.length} vacantes disponibles.`}
+        description={loading ? "Cargando..." : `${filtered.length} vacantes ${filtered.length === 1 ? "disponible" : "disponibles"}.`}
       />
-      <Card className="p-4">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar por rol o empresa…" className="pl-8" />
+      <Card className="p-3 sm:p-4">
+        <div className="flex flex-col gap-3">
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <Input 
+              value={q} 
+              onChange={(e) => setQ(e.target.value)} 
+              placeholder="Buscar por rol, empresa, skills…" 
+              className="pl-8 h-10 text-sm"
+              aria-label="Buscar vacantes"
+            />
           </div>
+          {q && (
+            <div className="text-xs text-muted-foreground">
+              {filtered.length} resultado{filtered.length !== 1 ? "s" : ""} para "{q}"
+            </div>
+          )}
         </div>
       </Card>
       {loading ? (
-        <p className="text-muted-foreground text-sm">Cargando vacantes...</p>
+        <div className="flex flex-col gap-4">
+          <div className="h-24 bg-muted rounded-lg animate-pulse" />
+          <div className="h-24 bg-muted rounded-lg animate-pulse" />
+          <div className="h-24 bg-muted rounded-lg animate-pulse" />
+        </div>
       ) : filtered.length === 0 ? (
-        <p className="text-muted-foreground text-sm">No se encontraron vacantes.</p>
+        <Card className="p-8 sm:p-12 text-center border-dashed">
+          <div className="h-12 w-12 rounded-full bg-muted grid place-items-center mx-auto mb-4">
+            <Search className="h-6 w-6 text-muted-foreground" />
+          </div>
+          <p className="font-semibold">No se encontraron vacantes</p>
+          <p className="text-sm text-muted-foreground mt-1">Intenta otros términos de búsqueda</p>
+        </Card>
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-3 sm:gap-4">
           {filtered.map((job) => (
             <JobCard key={job.id} job={job} />
           ))}

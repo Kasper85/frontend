@@ -45,32 +45,56 @@ function Postulaciones() {
           <p>No has postulado a ninguna vacante todavía.</p>
         </Card>
       ) : (
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/40 text-xs font-mono uppercase tracking-wider text-muted-foreground">
-                <tr>
-                  <th className="text-left p-4">Vacante</th>
-                  <th className="text-left p-4">Postulada</th>
-                  <th className="text-left p-4">Estado</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {apps.map((a) => (
-                  <tr key={a.application.id} className="hover:bg-muted/40">
-                    <td className="p-4 font-medium">{a.job_title ?? a.application.job_id}</td>
-                    <td className="p-4 text-muted-foreground font-mono text-xs">{a.application.applied_at?.slice(0, 10) ?? "—"}</td>
-                    <td className="p-4">
-                      <Badge variant="outline" className={`font-mono text-[10px] ${statusTone[a.application.status] ?? ""}`}>
-                        {a.application.status}
-                      </Badge>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <>
+          {/* Desktop: Tabla */}
+          <div className="hidden md:block">
+            <Card className="overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/40 text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                    <tr>
+                      <th className="text-left p-4">Vacante</th>
+                      <th className="text-left p-4">Postulada</th>
+                      <th className="text-left p-4">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {apps.map((a) => (
+                      <tr key={a.application.id} className="hover:bg-muted/40">
+                        <td className="p-4 font-medium">{a.job_title ?? a.application.job_id}</td>
+                        <td className="p-4 text-muted-foreground font-mono text-xs">{a.application.applied_at?.slice(0, 10) ?? "—"}</td>
+                        <td className="p-4">
+                          <Badge variant="outline" className={`font-mono text-[10px] ${statusTone[a.application.status] ?? ""}`}>
+                            {a.application.status}
+                          </Badge>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
           </div>
-        </Card>
+
+          {/* Mobile: Cards */}
+          <div className="md:hidden space-y-3">
+            {apps.map((a) => (
+              <Card key={a.application.id} className="p-4">
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="font-semibold text-sm flex-1">{a.job_title ?? a.application.job_id}</h3>
+                    <Badge variant="outline" className={`font-mono text-[10px] flex-shrink-0 ${statusTone[a.application.status] ?? ""}`}>
+                      {a.application.status}
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Postulada el {a.application.applied_at?.slice(0, 10) ?? "—"}
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
